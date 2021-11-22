@@ -3,10 +3,10 @@ import 'express-async-errors'
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
-// import { currentUserRouter } from './routes/current-user';
+import { currentUserRouter } from './routers/current-user';
 import { signinRouter } from './routers/signin';
 import { signupRouter } from './routers/signup';
-// import { signoutRouter } from './routes/signout';
+import { signoutRouter } from './routers/signout';
 import { NotFoundError } from './errors/not-found-error';
 import { errorHandler } from './middlewares/error-handler';
 
@@ -20,10 +20,10 @@ app.use(
     })
 );
 
-// app.use(currentUserRouter);
+app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signupRouter);
-// app.use(signoutRouter);
+app.use(signoutRouter);
 
 app.all('*', async (req, res) => {
     throw new NotFoundError();

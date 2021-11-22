@@ -19,14 +19,17 @@ export const currentUser = (
     res: Response, 
     next: NextFunction
 ) => {
-    if (!req.session?.jwt) {
+
+    const cookie = req.session?._ctx.headers.cookie;
+    const token = cookie.substr(cookie.indexOf('=')+1);
+    if (!token) {
         return next();
     }
 
     try {
         const payload = jwt.verify(
-            req.session.jwt,
-            process.env.JWT_KEY!
+            token,
+            'retake888'
         ) as UserPayload;
         req.currentUser = payload;
     } catch(err) {

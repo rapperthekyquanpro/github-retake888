@@ -46,7 +46,13 @@ async (req: Request, res: Response) => {
         jwt: userJwt
     };
 
-    res.status(200).send(existingUser);
+    res
+        .cookie('accesstoken',userJwt,{
+           httpOnly:true
+        })
+        .status(200)
+        .send({existingUser,userJwt});
+    
 }
 );
 
